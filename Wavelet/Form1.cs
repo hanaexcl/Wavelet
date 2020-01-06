@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
@@ -28,7 +29,7 @@ namespace Wavelet
 
             int _haarTimes = 4;
 
-            Bitmap tmpBitmap = new Bitmap("C:\\Users\\Kusyun_home2\\Desktop\\lena_gray.bmp");
+            Bitmap tmpBitmap = new Bitmap("C:\\Users\\Kusyun_home2\\Desktop\\lena_gray.jpg");
             Bitmap ntmpBitmap = new Bitmap(tmpBitmap.Width, tmpBitmap.Height);
             Bitmap ttmpBitmap = new Bitmap(tmpBitmap.Width, tmpBitmap.Height);
 
@@ -144,7 +145,7 @@ namespace Wavelet
             }
 
             //去除最小值
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 1; i++)
             {
                 int minR, minG, minB;
                 minR = img[0, 0].R;
@@ -289,6 +290,8 @@ namespace Wavelet
             }
 
             pictureBox3.Image = ttmpBitmap;
+
+            ttmpBitmap.Save("C:\\Users\\Kusyun_home2\\Desktop\\lena_gray1.bmp", ImageFormat.Jpeg);
         }
     }
 }
