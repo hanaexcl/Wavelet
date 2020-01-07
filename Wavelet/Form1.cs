@@ -24,12 +24,29 @@ namespace Wavelet
             InitializeComponent();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void toolStripButton1_Click(object sender, EventArgs e)
         {
 
-            int _haarTimes = 4;
+            string filePath = string.Empty;
 
-            Bitmap tmpBitmap = new Bitmap("C:\\Users\\Kusyun_home2\\Desktop\\lena_gray.jpg");
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+                openFileDialog.Filter = "All files (*.*)|*.*";
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    filePath = openFileDialog.FileName;
+                }
+            }
+
+            if (filePath.Length == 0) return;
+
+
+            int _haarTimes = Int32.Parse(toolStripComboBox1.Text);
+
+            Bitmap tmpBitmap = new Bitmap(filePath);
             Bitmap ntmpBitmap = new Bitmap(tmpBitmap.Width, tmpBitmap.Height);
             Bitmap ttmpBitmap = new Bitmap(tmpBitmap.Width, tmpBitmap.Height);
 
@@ -65,7 +82,7 @@ namespace Wavelet
             //計算
             int harrtmpSize_H = tmpSize_H;
             int harrtmpSize_W = tmpSize_W;
-            for (int harrTimes = 1; harrTimes <= _haarTimes; harrTimes ++)
+            for (int harrTimes = 1; harrTimes <= _haarTimes; harrTimes++)
             {
                 //橫
                 for (int h = 0; h < harrtmpSize_H; h++)
@@ -290,8 +307,6 @@ namespace Wavelet
             }
 
             pictureBox3.Image = ttmpBitmap;
-
-            ttmpBitmap.Save("C:\\Users\\Kusyun_home2\\Desktop\\lena_gray1.bmp", ImageFormat.Jpeg);
         }
     }
 }
